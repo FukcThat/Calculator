@@ -11,6 +11,7 @@ body {
 }
 
 input {
+    width: 50%;
     padding: 1rem;
     margin: 0.25rem;
     background-color: rgb(247, 213, 219);
@@ -27,7 +28,7 @@ button {
     box-shadow: 0.1rem 0.1rem 0.1rem rgb(184, 73, 101);
     transition: all 0.1s ease-in-out;
     cursor: pointer;
-    font-size: 2rem;
+    font-size: 1.5rem;
     background-color: rgb(247, 213, 219);
 }
 
@@ -42,8 +43,34 @@ button:active {
 }
 
 .calculator {
-    width: 100vw;
-    height: 100vh;
-    padding: 1rem;
-    margin: 1rem;
+    width: 100vw -2rem;
+    height: 100vh -2rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.row{
+    display: flex;
+    width: 100%;
+}
+
+.operator {
+    width: 15%;
+}
+
+.number {
+    width: 12%;
+}
+
+#clear {
+    width: 18%;
+}
+
+#clearAll {
+    width: 19%;
+}
+
+#equals {
+    width: 26%;
 }
