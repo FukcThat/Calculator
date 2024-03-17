@@ -1,4 +1,4 @@
-const buttons = document.querySelectorAll(".number, .operator");
+const buttons = document.querySelectorAll(".number, .operator, #clearAll");
 
 document.addEventListener("DOMContentLoaded", function () {
   const display = document.getElementById("display");
@@ -6,8 +6,13 @@ document.addEventListener("DOMContentLoaded", function () {
   // Add event listener to each button
   buttons.forEach(function (button) {
     button.addEventListener("click", function () {
-      // Get the value of the clicked button
       const value = button.textContent;
+
+      // Clear all Button
+      if (button.id === "clearAll") {
+        display.value = "0";
+        return;
+      }
 
       // Clear display if current value is "0" and clicked button is not "."
       if (display.value === "0" && value !== ".") {
@@ -21,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const lastNumberString = numberStrings[numberStrings.length - 1];
         // Ignore multiple decimals within number string
         if (lastNumberString.includes(".")) {
+          return;
         }
         // Add "0" before decimal
         if (display.value === "" || display.value.slice(-1).match(/[+\-*/]/)) {
