@@ -1,4 +1,6 @@
-const buttons = document.querySelectorAll(".number, .operator, #clearAll");
+const buttons = document.querySelectorAll(
+  ".number, .operator, #clearAll, #clear"
+);
 
 document.addEventListener("DOMContentLoaded", function () {
   const display = document.getElementById("display");
@@ -17,6 +19,15 @@ document.addEventListener("DOMContentLoaded", function () {
       // Clear display if current value is "0" and clicked button is not "."
       if (display.value === "0" && value !== ".") {
         display.value = "";
+      }
+
+      // Handle backspace
+      if (button.id === "clear") {
+        display.value = display.value.slice(0, -1);
+        if (display.value === "") {
+          display.value = "0";
+        }
+        return;
       }
 
       // Handle decimal points
