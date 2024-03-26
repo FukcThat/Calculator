@@ -1,9 +1,33 @@
+// Get all Buttons
 const buttons = document.querySelectorAll(
   ".number, .operator, #clearAll, #clear, #equals"
 );
 
+// Add
+function add(numbers) {
+  return numbers.reduce((acc, num) => acc + parseFloat(num), 0);
+}
+
+// Subtract
+function subtract(numbers) {
+  return numbers.reduce((acc, num) => acc - parseFloat(num));
+}
+
+// Multiply
+function multiply(numbers) {
+  return numbers.reduce((acc, num) => acc * parseFloat(num), 1);
+}
+
+//Divide
+function divide(numbers) {
+  return numbers.reduce((acc, num) => acc / parseFloat(num));
+}
+
+// Make sure everything is loaded
 document.addEventListener("DOMContentLoaded", function () {
   const display = document.getElementById("display");
+  const resultDisplay = document.getElementById("resultDisplay");
+  let previousExpression = "";
 
   // Add event listener to each button
   buttons.forEach(function (button) {
@@ -12,15 +36,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Equals Button Logic
       if (button.id === "equals") {
-        // get the numbers on either side
+        previousExpression = display.value;
+
+        // Split numbers to calculate with and get operator
         const numberStrings = display.value.split(/[+\-*/]/);
         const operator = display.value.match(/[+\-*\/]/);
-        resultDisplay.value = display.value + " =";
 
-        // math with switch
+        // Result Switch for Math
+        let result;
         switch (operator[0]) {
           case "*":
-            display.value = multiply(numberStrings);
+            result = multiply(numberStrings);
             break;
           case "/":
             result = divide(numberStrings);
@@ -29,19 +55,26 @@ document.addEventListener("DOMContentLoaded", function () {
             result = add(numberStrings);
             break;
           case "-":
-            result = subract(numberStrings);
+            result = subtract(numberStrings);
             break;
           default:
-            console.error("YOU SUCK");
+            console.error("Invalid operator");
             break;
         }
 
+        // Display the result in the main display
+        display.value = result;
+
+        // Display the previous calculation in the result display
+        resultDisplay.value = previousExpression;
         return;
       }
 
       // Clear all Button
       if (button.id === "clearAll") {
         display.value = "0";
+        resultDisplay.value = "";
+        previousExpression = "";
         return;
       }
 
