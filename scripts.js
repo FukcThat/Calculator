@@ -1,5 +1,5 @@
 const buttons = document.querySelectorAll(
-  ".number, .operator, #clearAll, #clear"
+  ".number, .operator, #clearAll, #clear, #equals"
 );
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -9,6 +9,35 @@ document.addEventListener("DOMContentLoaded", function () {
   buttons.forEach(function (button) {
     button.addEventListener("click", function () {
       const value = button.textContent;
+
+      // Equals Button Logic
+      if (button.id === "equals") {
+        // get the numbers on either side
+        const numberStrings = display.value.split(/[+\-*/]/);
+        const operator = display.value.match(/[+\-*\/]/);
+        resultDisplay.value = display.value + " =";
+
+        // math with switch
+        switch (operator[0]) {
+          case "*":
+            display.value = multiply(numberStrings);
+            break;
+          case "/":
+            result = divide(numberStrings);
+            break;
+          case "+":
+            result = add(numberStrings);
+            break;
+          case "-":
+            result = subract(numberStrings);
+            break;
+          default:
+            console.error("YOU SUCK");
+            break;
+        }
+
+        return;
+      }
 
       // Clear all Button
       if (button.id === "clearAll") {
@@ -32,10 +61,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Handle decimal points
       if (value === ".") {
-        // Split the display value into number strings
         const numberStrings = display.value.split(/[+\-*/]/);
         const lastNumberString = numberStrings[numberStrings.length - 1];
-        // Ignore multiple decimals within number string
         if (lastNumberString.includes(".")) {
           return;
         }
@@ -55,11 +82,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
-
-// add
-
-// subtract
-
-// multiply
-
-// divide
